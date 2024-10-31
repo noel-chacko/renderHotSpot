@@ -21,7 +21,6 @@ export default function Home() {
     console.log("Event Details:", formData);
   };
 
-
   return (
     <div className="flex flex-col min-h-screen">
       <nav className="tab-bar w-full p-4 flex items-center">
