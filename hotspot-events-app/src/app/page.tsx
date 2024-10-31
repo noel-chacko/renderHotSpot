@@ -60,11 +60,13 @@
 //above is default code
 
 import Image from "next/image";
+import Registration from "./Reg";
 
 export default function Home() {
   return (
   <div>
-    <h1>HOTSPOT</h1>
+    <h1 className= 'text-lg'>HOTSPOT</h1>
+      <Registration/>
   </div>
   );
 }
