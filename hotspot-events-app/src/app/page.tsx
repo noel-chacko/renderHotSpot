@@ -2,6 +2,7 @@
 import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
 import { useState } from "react";
 import Registration from './Reg';
+import Search from './searchBar';
 
 export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -57,8 +58,10 @@ export default function Home() {
       </nav>
 
       <main className="flex-grow flex items-center justify-center">
-        <h1 className="text-6xl font-bold">Welcome to HOTSPOT</h1>
-
+        <div className="flex flex-col space-y-4 mb-12 mr-auto">
+            <h1 className="text-6xl font-bold ml-5">Welcome to HOTSPOT</h1>
+              <Search/>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-md w-full max-w-md">
           <h2 className="text-2xl font-semibold text-gray-800">Create an Event</h2>
           <div>
