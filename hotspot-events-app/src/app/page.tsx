@@ -1,9 +1,11 @@
 "use client";
 import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
 import { useState } from "react";
+import Registration from './Reg';
+import Search from './searchBar';
 
 export default function Home() {
-
+  const [isRegistered, setIsRegistered] = useState(false);
   const [formData, setFormData] = useState({
     eventName: "",
     eventDate: "",
@@ -11,15 +13,19 @@ export default function Home() {
     eventLocation: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log("Event Details:", formData);
   };
+
+  if (!isRegistered) {
+    return <Registration onRegister={() => setIsRegistered(true)} />;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -52,8 +58,10 @@ export default function Home() {
       </nav>
 
       <main className="flex-grow flex items-center justify-center">
-        <h1 className="text-6xl font-bold">Welcome to HOTSPOT</h1>
-
+        <div className="flex flex-col space-y-4 mb-12 mr-auto">
+            <h1 className="text-6xl font-bold ml-5">Welcome to HOTSPOT</h1>
+              <Search/>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-md w-full max-w-md">
           <h2 className="text-2xl font-semibold text-gray-800">Create an Event</h2>
           <div>
