@@ -1,8 +1,10 @@
 "use client";
 import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     eventName: "",
@@ -11,12 +13,12 @@ export default function Home() {
     eventLocation: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log("Event Details:", formData);
   };
@@ -44,7 +46,7 @@ export default function Home() {
             <span>Notifications</span>
           </button>
           
-          <button className="tab-button">
+          <button className="tab-button" onClick={() => router.push("/profile")}>
             <FaUser />
             <span>Profile</span>
           </button>
