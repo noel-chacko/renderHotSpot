@@ -28,12 +28,12 @@ export default function Search(){
                                         onKeyDown={(e) =>{
                                                 if(e.key === "Enter"){onSearch();}
                                         }}
-                                        className="w-2/3 p-2 border rounded-lg text-black "
-                                        required
+                                        className="w-2/3 p-2 border rounded-full text-black drop-shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gradient-to-r from-white to-indigo-100"
+                                        required      
                                 />
                                 <button
                                         onClick={onSearch}
-                                        className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                        className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-transform transform hover:scale-105"
                                 >
                                 <FaSearch/>
                                 </button>

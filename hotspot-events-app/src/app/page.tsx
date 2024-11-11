@@ -11,7 +11,7 @@ import { db } from './firebase';
 import { collection, addDoc } from "firebase/firestore";
 
 export default function Home() {
-  const [isRegistered, setIsRegistered] = useState(false);
+  // const [isRegistered, setIsRegistered] = useState(false);
   const router = useRouter();
   const [isNotificationOpen, setNotificationOpen] = useState(false);
   const notificationRef = useRef(null);
@@ -68,9 +68,9 @@ export default function Home() {
     };
   }, []);
 
-  if (!isRegistered) {
-    return <Registration onRegister={() => setIsRegistered(true)} />;
-  }
+  // if (!isRegistered) {
+  //   return <Registration onRegister={() => setIsRegistered(true)} />;
+  // }
 
   return (
     <div className="flex flex-col min-h-screen">
