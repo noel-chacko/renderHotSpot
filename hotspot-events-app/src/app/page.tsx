@@ -6,11 +6,16 @@ import Registration from './Reg';
 import Search from './searchBar';
 import Link from 'next/link';
 
+//Firebase
+import { db } from './firebase';
+import { collection, addDoc } from "firebase/firestore";
+
 export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
   const router = useRouter();
   const [isNotificationOpen, setNotificationOpen] = useState(false);
   const notificationRef = useRef(null);
+
 
   const [formData, setFormData] = useState({
     eventName: "",
@@ -24,9 +29,25 @@ export default function Home() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Event Details:", formData);
+
+    try {
+      const docRef = await addDoc(collection(db, "events"), formData);
+      console.log("Document written with ID: ", docRef.id);
+      alert("Event created successfully!");
+
+      setFormData({
+        eventName: "",
+        eventDate: "",
+        eventTime: "",
+        eventLocation: "",
+      });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert("Failed to create event. Please try again.");
+    }
   };
 
   // Toggle notification dropdown
