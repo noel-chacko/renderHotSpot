@@ -19,6 +19,7 @@ export default function Home() {
   const [isNotificationOpen, setNotificationOpen] = useState(false);
   const notificationRef = useRef(null);
 
+
   const [formData, setFormData] = useState({
     eventName: "",
     eventDate: "",
@@ -125,7 +126,7 @@ export default function Home() {
 
       {/* <EventCreationForm/> */}
       <EventCatalog/>
-        
+      
 
       </main>
     </div>
