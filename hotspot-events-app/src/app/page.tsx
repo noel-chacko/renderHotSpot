@@ -52,6 +52,7 @@ export default function Home() {
     }
   };
 
+
   // Toggle notification dropdown
   const toggleNotifications = () => {
     setNotificationOpen(!isNotificationOpen);
@@ -87,7 +88,7 @@ export default function Home() {
             <span>Home</span>
           </Link>
           
-          <button className="tab-button">
+          <button className="tab-button" onClick={() => router.push("/events")}>
             <FaCalendarAlt />
             <span>Events</span>
           </button>
@@ -124,6 +125,7 @@ export default function Home() {
 
       {/* <EventCreationForm/> */}
       <EventCatalog/>
+        
 
       </main>
     </div>
