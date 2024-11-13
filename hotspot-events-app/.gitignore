@@ -42,3 +42,8 @@ next-env.d.ts
 #firebase keys
 **/apphosting.yaml
 **/firebase.js
+
+
+#firebase keys
+/apphosting.yaml
+/firebase.js
