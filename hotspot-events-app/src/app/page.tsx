@@ -19,38 +19,7 @@ export default function Home() {
   const [isNotificationOpen, setNotificationOpen] = useState(false);
   const notificationRef = useRef(null);
 
-  const [formData, setFormData] = useState({
-    eventName: "",
-    eventDate: "",
-    eventTime: "",
-    eventLocation: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Event Details:", formData);
-
-    try {
-      const docRef = await addDoc(collection(db, "events"), formData);
-      console.log("Document written with ID: ", docRef.id);
-      alert("Event created successfully!");
-
-      setFormData({
-        eventName: "",
-        eventDate: "",
-        eventTime: "",
-        eventLocation: "",
-      });
-    } catch (error) {
-      console.error("Error adding document: ", error);
-      alert("Failed to create event. Please try again.");
-    }
-  };
+  
 
   // Toggle notification dropdown
   const toggleNotifications = () => {
@@ -87,7 +56,7 @@ export default function Home() {
             <span>Home</span>
           </Link>
           
-          <button className="tab-button">
+          <button className="tab-button" onClick={() => router.push("/events")}>
             <FaCalendarAlt />
             <span>Events</span>
           </button>
@@ -121,9 +90,7 @@ export default function Home() {
           <h1 className="text-6xl font-bold ml-5">Welcome to HOTSPOT</h1>
           <Search />
         </div>
-
-      {/* <EventCreationForm/> */}
-      <EventCatalog/>
+        
 
       </main>
     </div>
