@@ -123,10 +123,14 @@ export default function Home() {
           <h1 className="text-6xl font-bold ml-5">Welcome to HOTSPOT</h1>
           <Search />
         </div>
+<<<<<<< HEAD
 
       {/* <EventCreationForm/> */}
       <EventCatalog/>
       
+=======
+        
+>>>>>>> 86f7317 (deletd form from home page)
 
       </main>
     </div>
