@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { db } from '@/app/firebase';
 import { collection, getDocs } from "firebase/firestore";
 import { format } from 'date-fns';
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 
 interface Event {
     id: string;
@@ -82,19 +83,15 @@ export default function EventCatalog() {
                             </div>
 
                             {/* Date & Time */}
-                            <div className="text-gray-500 text-sm mb-2">
-                                <p>
-                                    <span className="font-bold">📅 Date:</span> {formatDate(event.eventDate)}
-                                </p>
-                                <p>
-                                    <span className="font-bold">⏰ Time:</span> {formatTime(event.eventTime)}
-                                </p>
-                            </div>
-
-                            {/* Location */}
                             <div className="text-gray-500 text-sm">
                                 <p>
-                                    <span className="font-bold">📍 Location:</span> {event.eventLocation}
+                                    <FaCalendarAlt className="inline-block mr-2 text-[#ee9a40]" /> {formatDate(event.eventDate)}
+                                </p>
+                                <p>
+                                    <FaClock className="inline-block mr-2 text-[#ee9a40]" /> {formatTime(event.eventTime)}
+                                </p>
+                                <p>
+                                    <FaMapMarkerAlt className="inline-block mr-2 text-[#ee9a40]" /> {event.eventLocation}
                                 </p>
                             </div>
 
@@ -104,10 +101,6 @@ export default function EventCatalog() {
                                     View Details
                                 </button>
                             </div>
-                            <div className="flip-back flex items-center justify-center h-full p-4 bg-[#f6f3f2] rounded-lg shadow-lg text-gray-800">
-                                    {/* Additional event details */}
-                                    <p>More details about the event can go here...</p>
-                                </div>
                         </div>
                     ))}
                 </div>
