@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         <div className="flex space-x-6">
-          <Link href="/homepage" className="tab-button">
+          <Link href="/" className="tab-button">
             <FaHome />
             <span>Home</span>
           </Link>
