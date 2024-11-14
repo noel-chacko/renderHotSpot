@@ -1,15 +1,13 @@
 // src/app/events/page.tsx
 
 "use client";
-import { useState, useEffect } from "react";
-import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
-//import { db } from '../app/firebase';
-//import { collection, getDocs } from "firebase/firestore";
-import Link from 'next/link';
+import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/app/firebase"; 
+import NavBar from "@/app/NavBar"; 
 
 export default function Events() {
   const [events, setEvents] = useState([]);
-
   const [formData, setFormData] = useState({
     eventName: "",
     eventDate: "",
@@ -43,55 +41,14 @@ export default function Events() {
     }
   };
 
-  // Fetch events from Firestore
-  // useEffect(() => {
-  //   const fetchEvents = async () => {
-  //     try {
-  //       const querySnapshot = await getDocs(collection(db, "events"));
-  //       const eventsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  //       setEvents(eventsData);
-  //     } catch (error) {
-  //       console.error("Error fetching events: ", error);
-  //     }
-  //   };
-
-  //   fetchEvents();
-  // }, []);
-
   return (
-    <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#edeced' }}>
-    <nav className="tab-bar w-full p-4 flex items-center">
-      <div className="logo mr-auto">
-        <h1>HOTSPOT</h1>
-      </div>
+    <div className="flex flex-col min-h-screen" style={{ backgroundColor: "#edeced" }}>
+      <NavBar />
 
-      <div className="flex space-x-6">
-        <Link href="/" className="tab-button">
-          <FaHome />
-          <span>Home</span>
-        </Link>
-
-        {/* Events redirects to main page.tsx file*/}
-        <Link href="/events" className="tab-button">
-          <FaCalendarAlt />
-          <span>Events</span>
-        </Link>
-
-        <Link href="/notifications" className="tab-button">
-          <FaBell />
-          <span>Notifications</span>
-        </Link>
-
-        <Link href="/profile" className="tab-button">
-          <FaUser />
-          <span>Profile</span>
-        </Link>
-      </div>
-    </nav>
-    <div className="flex flex-1 justify-center items-center">
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4"> 
+      <div className="flex flex-1 justify-center items-center">
+        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4">
           <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">Create a New Event</h2>
-          
+
           <div>
             <label className="block text-gray-700">Event Name</label>
             <input
@@ -149,7 +106,7 @@ export default function Events() {
             Create Event
           </button>
         </form>
-        </div>
-        </div>
-   );
+      </div>
+    </div>
+  );
 }
