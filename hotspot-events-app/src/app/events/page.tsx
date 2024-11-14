@@ -66,13 +66,13 @@ export default function Events() {
       </div>
 
       <div className="flex space-x-6">
-        <Link href="/homepage" className="tab-button">
+        <Link href="/" className="tab-button">
           <FaHome />
           <span>Home</span>
         </Link>
 
         {/* Events redirects to main page.tsx file*/}
-        <Link href="/" className="tab-button">
+        <Link href="/events" className="tab-button">
           <FaCalendarAlt />
           <span>Events</span>
         </Link>
