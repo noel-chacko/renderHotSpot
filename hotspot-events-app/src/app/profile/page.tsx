@@ -1,9 +1,13 @@
 // src/app/profile/page.tsx
 "use client";
+import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
 import React, { useState } from "react";
-import NavBar from "@/app/NavBar"; 
+import { useRouter } from "next/navigation";
+import Registration from "../Reg";
+import NavBar from "@/app/NavBar";
 
 export default function Profile() {
+  const [isRegistered, setIsRegistered] = useState(false);
   const [name, setName] = useState("");
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -26,6 +30,15 @@ export default function Profile() {
     console.log("User Name:", name);
     console.log("Profile Picture:", profilePicture);
   };
+  
+  const handleRegistrationComplete = () => {
+    setIsRegistered(true);  // Update state to show profile page
+  };
+
+  // Render the Registration component if the user is not registered
+  if (!isRegistered) {
+    return <Registration onRegister={handleRegistrationComplete} />;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
