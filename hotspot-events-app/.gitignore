@@ -39,8 +39,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#firebase keys
-**/apphosting.yaml
-**/firebase.js
-
 
