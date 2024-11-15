@@ -42,7 +42,7 @@ export default function Events() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ backgroundColor: "#edeced" }}>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
 
       <div className="flex flex-1 justify-center items-center">
