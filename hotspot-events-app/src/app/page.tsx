@@ -13,7 +13,7 @@ export default function Home() {
 
       <main className="flex-grow flex items-center justify-center">
         <div className="flex flex-col space-y-4 mb-12 mr-auto">
-          <h1 className="text-6xl font-bold ml-5">Welcome to HOTSPOT</h1>
+          <h1 className="welcome-text text-6xl font-bold ml-5 text-[#3D52A0]">Welcome to HOTSPOT</h1>
           <Search />
         </div>
         <EventCatalog />
