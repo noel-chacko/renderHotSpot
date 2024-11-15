@@ -9,7 +9,7 @@ Make sure you are on node.js version >= 18.18.0
 
 COMMANDS:
 
-nvm install 18.18.0 (only need these 2 if your node.js version is old)
+nvm install 18.18.0
 
 nvm use 18.18.0
 
