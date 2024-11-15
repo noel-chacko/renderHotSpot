@@ -16,7 +16,9 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(135deg, #b7b8d4, #8c9ac1);
+  background-size: 200% 200%;
+  animation: gradientAnimation 6s ease infinite;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -45,24 +47,8 @@ nav button {
   @apply text-xs mt-1;
 }
 
-@font-face {
-  font-family: 'firstFont';
-  src: url('/fonts/MARY GOODS.otf');
-}
-
 .welcome-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 12vw;
-  font-weight: 400;
-  z-index: 0;
-  color: #526760;
-  font-family: "firstFont";
+  font-family: 'firstFont', Arial, Helvetica, sans-serif;
 }
 
 @keyframes fadeInShadow {
@@ -80,12 +66,6 @@ nav button {
   animation: fadeInShadow 2s ease-in-out;
 }
 
-.gradient-bg {
-  background: linear-gradient(135deg, #edeced, #ee9a40);
-  background-size: 200% 200%;
-  animation: gradientAnimation 6s ease infinite;
-}
-
 @keyframes gradientAnimation {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -93,10 +73,32 @@ nav button {
 }
 
 .hover-gradient {
-  background: linear-gradient(90deg, #ee9a40, #FF7870);
+  background: linear-gradient(90deg, #7091E6, #9eadd3);
   transition: background 0.4s ease;
 }
 .hover-gradient:hover {
-  background: linear-gradient(90deg, #394d42, #8a9e97);
+  background: linear-gradient(90deg, #3D52A0, #8697C4);
 }
 
+@font-face {
+  font-family: 'firstFont';
+  src: url('/fonts/AndersonGrotesk-Ultrabold.otf');
+}
+
+.events-text{
+  font-family: 'secondFont', Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'secondFont';
+  src: url('/fonts/AndersonGrotesk-BoldOblique.otf');
+}
+
+@font-face {
+  font-family: 'thirdFont';
+  src: url('/fonts/AndersonGrotesk-Bold.otf');
+}
+
+.card-text{
+  font-family: 'thirdFont', Arial, Helvetica, sans-serif;
+}

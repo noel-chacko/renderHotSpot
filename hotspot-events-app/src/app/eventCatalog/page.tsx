@@ -52,8 +52,8 @@ export default function EventCatalog() {
     }
 
     return (
-        <div className="p-6 gradient-bg min-h-screen">
-            <h2 className="text-3xl font-bold text-center mb-8 text-[#FF7870]">
+        <div className="p-6 min-h-screen">
+            <h2 className="events-text text-3xl font-bold text-center mb-8 text-[#3D52A0]">
                 Upcoming Events
             </h2>
 
@@ -70,11 +70,11 @@ export default function EventCatalog() {
                     {events.map((event) => (
                         <div
                             key={event.id}
-                            className="event-card min-w-[200px] bg-white shadow-lg rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
+                            className="event-card min-w-[200px] bg-[#e2dbe8] shadow-lg rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
                         >
                             {/* Header with Icon */}
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-semibold text-[#FF7870]">
+                                <h3 className="card-text text-lg font-semibold text-[#3D52A0]">
                                     {event.eventName}
                                 </h3>
                                 <span className="text-[#ee9a40] font-semibold">
@@ -83,21 +83,21 @@ export default function EventCatalog() {
                             </div>
 
                             {/* Date & Time */}
-                            <div className="text-gray-500 text-sm">
+                            <div className="text-gray-500 card-text text-sm">
                                 <p>
-                                    <FaCalendarAlt className="inline-block mr-2 text-[#ee9a40]" /> {formatDate(event.eventDate)}
+                                    <FaCalendarAlt className="inline-block mr-2 text-[#7091E6]" /> {formatDate(event.eventDate)}
                                 </p>
                                 <p>
-                                    <FaClock className="inline-block mr-2 text-[#ee9a40]" /> {formatTime(event.eventTime)}
+                                    <FaClock className="inline-block mr-2 text-[#7091E6]" /> {formatTime(event.eventTime)}
                                 </p>
                                 <p>
-                                    <FaMapMarkerAlt className="inline-block mr-2 text-[#ee9a40]" /> {event.eventLocation}
+                                    <FaMapMarkerAlt className="inline-block mr-2 text-[#7091E6]" /> {event.eventLocation}
                                 </p>
                             </div>
 
                             {/* Button to View Details */}
                             <div className="mt-4">
-                            <button className="w-full py-2 text-white rounded-full hover-gradient">
+                            <button className="card-text w-full py-2 text-white rounded-full hover-gradient">
                                     View Details
                                 </button>
                             </div>
