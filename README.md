@@ -7,6 +7,10 @@ Installation Instructions:
 
 Make sure you are on node.js version >= 18.18.0
 
+clone this repo
+
+https://github.com/cis3296f24/01-HotSpot.git
+
 COMMANDS:
 
 nvm install 18.18.0
