@@ -1,10 +1,15 @@
 // src/app/events/page.tsx
 
 "use client";
-import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/app/firebase"; 
+import { useState } from "react"; 
 import NavBar from "@/app/NavBar"; 
+import { useRouter } from "next/navigation";
+import Registration from '@/app/Reg';
+
+//Firebase
+import { db } from '@/app/firebase';
+import { collection, addDoc } from "firebase/firestore";
+import EventCreationForm from "@/formComponent/page";
 
 
 export default function Events() {
@@ -74,66 +79,7 @@ export default function Events() {
       <NavBar />
 
       <div className="flex flex-1 justify-center items-center">
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">Create a New Event</h2>
-
-          <div>
-            <label className="block text-gray-700">Event Name</label>
-            <input
-              type="text"
-              name="eventName"
-              value={formData.eventName}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              placeholder="Enter event name"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700">Event Date</label>
-            <input
-              type="date"
-              name="eventDate"
-              value={formData.eventDate}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded text-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700">Event Time</label>
-            <input
-              type="time"
-              name="eventTime"
-              value={formData.eventTime}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded text-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700">Event Location</label>
-            <input
-              type="text"
-              name="eventLocation"
-              value={formData.eventLocation}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              placeholder="Enter location"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition duration-200"
-          >
-            Create Event
-          </button>
-        </form>
+        <EventCreationForm/>
       </div>
     </div>
   );
