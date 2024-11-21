@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { db } from '@/app/firebase';
 import { collection, getDocs } from "firebase/firestore";
 import { format } from 'date-fns';
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart, FaRegHeart } from 'react-icons/fa';
 
 interface Event {
     id: string;
@@ -13,6 +13,7 @@ interface Event {
     eventDate: string;
     eventTime: string;
     eventLocation: string;
+    isFavorited?: boolean;
 }
 
 export default function EventCatalog() {
@@ -27,6 +28,7 @@ export default function EventCatalog() {
                 const eventsData = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data(),
+                    isFavorited: false,
                 })) as Event[];
               
                 setEvents(eventsData);
@@ -40,6 +42,14 @@ export default function EventCatalog() {
         fetchEvents();
     }, []);
 
+    const toggleFavorite = (eventId: string) => {
+        setEvents((prevEvents) =>
+            prevEvents.map((event) =>
+                event.id === eventId ? { ...event, isFavorited: !event.isFavorited } : event
+            )
+        );
+    };
+
         //helper functions for better formatting using date-fns
     function formatDate(dateStr: string) {
         const date = new Date(dateStr);
@@ -50,6 +60,17 @@ export default function EventCatalog() {
         const time = new Date(`1970-01-01T${timeStr}:00`);
         return format(time, 'h:mm a');
     }
+
+    const sortedEvents = [...events].sort((a, b) => {
+        // Favorited events should come before non-favorited events
+        if (a.isFavorited && !b.isFavorited) {
+            return -1;
+        } else if (!a.isFavorited && b.isFavorited) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
 
     return (
         <div className="p-6 min-h-screen">
@@ -67,7 +88,7 @@ export default function EventCatalog() {
                 </p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {events.map((event) => (
+                    {sortedEvents.map((event) => (
                         <div
                             key={event.id}
                             className="event-card min-w-[200px] bg-[#e2dbe8] shadow-lg rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
@@ -77,9 +98,16 @@ export default function EventCatalog() {
                                 <h3 className="card-text text-lg font-semibold text-[#3D52A0]">
                                     {event.eventName}
                                 </h3>
-                                <span className="text-[#ee9a40] font-semibold">
-                                    🎉
-                                </span>
+
+                                {/* Favorite Button with Debugging Styles */}
+                                <button 
+                                    onClick={() => toggleFavorite(event.id)}>
+                                    {event.isFavorited ? (
+                                    <FaHeart className="text-[#ee9a40] text-xl" />
+                                    ) : (
+                                    <FaRegHeart className="text-gray-400 text-xl" />
+                                    )}
+                                </button>
                             </div>
 
                             {/* Date & Time */}
