@@ -1,52 +1,128 @@
-// "use client";
+"use client";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { db } from '@/app/firebase';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { FaArrowAltCircleLeft, FaClock } from 'react-icons/fa';
+import { FaCalendar, FaMapLocationDot, FaPerson } from 'react-icons/fa6';
+import { format } from 'date-fns';
+import { useRouter } from "next/navigation";
 
-// import React, { useEffect, useState } from "react";
-// import { useRouter, useSearchParams } from "next/navigation";
+interface Event {
+  eventName: string;
+  eventDate: string;
+  eventTime: string;
+  eventLocation: string;
+}
 
-// export default function EventPage() {
-//     const router = useRouter();
-//     const searchParams = useSearchParams();
-//     const [isLoading, setIsLoading] = useState(true);
+export default function EventDetailsPage() {
+  const params = useParams();
+  const [event, setEvent] = useState<Event | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-//     // Get query parameters
-//     const eventName = decodeURIComponent(searchParams.get("eventName") || "");
-//     const date = searchParams.get("date") || "Not available";
-//     const time = searchParams.get("time") || "Not available";
-//     const location = searchParams.get("location") || "Not available";
+  useEffect(() => {
+    const fetchEventDetails = async () => {
+      try {
+        const eventName = decodeURIComponent(params.eventName as string);
 
-//     useEffect(() => {
-//         console.log("Event Name:", eventName);
-//         console.log("Date:", date);
-//         console.log("Time:", time);
-//         console.log("Location:", location);
-//     }, [eventName, date, time, location]);
+        const q = query(
+          collection(db, "events"), 
+          where("eventName", "==", eventName),
+        );
 
-//     useEffect(() => {
-//         const timeout = setTimeout(() => setIsLoading(false), 1000); // Simulate a loading delay
-//         return () => clearTimeout(timeout);
-//     }, []);
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const eventData = querySnapshot.docs[0].data() as Event;
+          setEvent(eventData);
+        }
+      } catch (error) {
+        console.error("Error fetching event details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//     return (
-//         <div className="flex items-center justify-center h-screen bg-gray-100">
-//             {isLoading ? (
-//                 <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
-//             ) : (
-//                 <div className="bg-white p-6 rounded-lg shadow-md space-y-4">
-//                     <h1 className="text-2xl font-bold text-indigo-600">{eventName}</h1>
-//                     <p className="text-gray-600"><strong>Date:</strong> {date}</p>
-//                     <p className="text-gray-600"><strong>Time:</strong> {time}</p>
-//                     <p className="text-gray-600"><strong>Location:</strong> {location}</p>
-//                     <button
-//                         className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600"
-//                         onClick={() => {
-//                             console.log("Navigating to home...");
-//                             // router.push("/");  // Debugging router push
-//                         }}
-//                     >
-//                         Back to Search
-//                     </button>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// }
+    fetchEventDetails();
+  }, [params]);
+
+  const handleGoBack = () => {
+    router.back();
+  }
+
+  const formatDate = (dateStr: string) => {
+    return format(new Date(dateStr), 'MMMM d, yyyy');
+  };
+
+  const formatTime = (timeStr: string) => {
+    return format(new Date(`1970-01-01T${timeStr}:00`), 'h:mm a');
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (!event) return <div>Event not found</div>;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center p-4">
+      <button
+          onClick={handleGoBack}
+          className="absolute top-4 left-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+        </button>
+      
+      <div className="bg-white shadow-2xl rounded-xl overflow-hidden w-full max-w-2xl relative">
+      
+        
+        {/* Event Details */}
+        <div className="p-6 space-y-6">
+          <h1 className="text-4xl font-bold text-indigo-800 mb-4">{event.eventName}</h1>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Left Column */}
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <FaCalendar className="inline-block mr-4 text-[#7091E6] w-6 h-6" />
+                <div>
+                  <span className="font-semibold text-gray-700">Date:</span>
+                  <p className="text-gray-600">{formatDate(event.eventDate)}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <FaClock className="inline-block mr-4 text-[#7091E6] w-6 h-6" />
+                <div>
+                  <span className="font-semibold text-gray-700">Time:</span>
+                  <p className="text-gray-600">{formatTime(event.eventTime)}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <FaMapLocationDot className="inline-block mr-4 text-[#7091E6] w-6 h-6" />
+                <div>
+                  <span className="font-semibold text-gray-700">Location:</span>
+                  <p className="text-gray-600">{event.eventLocation}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
