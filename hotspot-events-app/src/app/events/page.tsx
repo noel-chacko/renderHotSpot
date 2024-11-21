@@ -11,6 +11,7 @@ import { db } from '@/app/firebase';
 import { collection, addDoc } from "firebase/firestore";
 import EventCreationForm from "@/formComponent/page";
 
+
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
@@ -25,6 +26,30 @@ export default function Events() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const sendEmail = async (eventDetails) => {
+    try {
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventDetails),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        console.log("API Response:", result);
+      } else {
+        console.error("API Error:", result);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send email notification. Please check the log for more details.");
+    }
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Event Details:", formData);
@@ -32,6 +57,9 @@ export default function Events() {
     try {
       const docRef = await addDoc(collection(db, "events"), formData);
       console.log("Document written with ID: ", docRef.id);
+
+      await sendEmail(formData);
+
       alert("Event created successfully!");
 
       setFormData({
