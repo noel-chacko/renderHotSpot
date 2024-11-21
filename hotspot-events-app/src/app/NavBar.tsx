@@ -1,6 +1,5 @@
-// components/NavBar.tsx
 "use client";
-import { FaHome, FaCalendarAlt, FaBell, FaUser } from "react-icons/fa";
+import { FaHome, FaCalendarAlt, FaBell, FaUser, FaFire } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -43,6 +42,11 @@ export default function NavBar() {
         <button className="tab-button" onClick={() => router.push("/events")}>
           <FaCalendarAlt />
           <span>Events</span>
+        </button>
+
+        <button className="tab-button" onClick={() => router.push("/hotspots")}>
+          <FaFire />
+          <span>Hotspots</span>
         </button>
 
         <div className="relative" ref={notificationRef}>
