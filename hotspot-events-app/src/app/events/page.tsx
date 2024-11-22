@@ -11,6 +11,7 @@ import { db } from '@/app/firebase';
 import { collection, addDoc } from "firebase/firestore";
 import EventCreationForm from "@/formComponent/page";
 
+
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
