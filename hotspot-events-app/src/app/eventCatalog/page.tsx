@@ -1,11 +1,10 @@
-// src/app/eventsCatalog/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
 import { db } from '@/app/firebase';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { format } from 'date-fns';
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart, FaRegHeart, FaFire } from 'react-icons/fa';
 import Link from "next/link";
 
 interface Event {
@@ -15,6 +14,7 @@ interface Event {
     eventTime: string;
     eventLocation: string;
     isFavorited?: boolean;
+    trendingCount: number;
 }
 
 export default function EventCatalog() {
@@ -29,6 +29,7 @@ export default function EventCatalog() {
                 const eventsData = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data(),
+                    trendingCount: doc.data().trendingCount || 0,
                     isFavorited: false,
                 })) as Event[];
 
@@ -49,6 +50,24 @@ export default function EventCatalog() {
                 event.id === eventId ? { ...event, isFavorited: !event.isFavorited } : event
             )
         );
+    };
+
+    const handleTrendingClick = async (eventId: string) => {
+        setEvents((prevEvents) => {
+            const updatedEvents = prevEvents.map((event) => {
+                if (event.id === eventId) {
+                    const updatedEvent = { ...event, trendingCount: event.trendingCount + 1 };
+                    updateDoc(doc(db, "events", eventId), {
+                        trendingCount: updatedEvent.trendingCount,
+                    }).catch((error) => {
+                        console.error("Error updating trending count: ", error);
+                    });
+                    return updatedEvent;
+                }
+                return event;
+            });
+            return updatedEvents;
+        });
     };
 
     // Helper functions for better formatting using date-fns
@@ -81,7 +100,7 @@ export default function EventCatalog() {
 
             {loading ? (
                 <div className="flex justify-center items-center h-40">
-                    <p className="text-gray-500">Loading events...</p>
+                    <p className="text-[#3D52A0]">Loading events...</p>
                 </div>
             ) : events.length === 0 ? (
                 <p className="text-center text-lg font-medium text-gray-600">
@@ -130,6 +149,17 @@ export default function EventCatalog() {
                                         View Details
                                     </button>
                                 </Link>
+                            </div>
+
+                            {/* Trending - Fire Icon for trending events */}
+                            <div className="absolute bottom-2 left-2 flex items-center z-10">
+                                <button
+                                    onClick={() => handleTrendingClick(event.id)}
+                                    className={`flex items-center ${event.trendingCount >= 10 ? 'text-red-600 animate-flame' : event.trendingCount >= 5 ? 'text-orange-500 animate-pulse' : 'text-gray-500'}`}
+                                >
+                                    <FaFire className={`transition-all ${event.trendingCount >= 10 ? 'text-red-600' : event.trendingCount >= 5 ? 'text-orange-500' : 'text-gray-500'}`} />
+                                    <span className="ml-2">{event.trendingCount}</span>
+                                </button>
                             </div>
                         </div>
                     ))}
