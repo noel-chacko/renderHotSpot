@@ -5,12 +5,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Registration from "../Reg";
 import NavBar from "@/app/NavBar";
+import { db, auth } from "@/app/firebase";
 
 export default function Profile() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [name, setName] = useState("");
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -32,7 +34,7 @@ export default function Profile() {
   };
   
   const handleRegistrationComplete = () => {
-    setIsRegistered(true);  // Update state to show profile page
+    setIsRegistered(true);
   };
 
   // Render the Registration component if the user is not registered
