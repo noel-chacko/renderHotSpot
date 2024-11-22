@@ -24,31 +24,30 @@ export default function Search(){
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true);
-    setIsLoaded(true);
+        setIsLoaded(true);
+        // setIsClient(true);
 
-    // Fetch events from Firestore with more details
-    const fetchEvents = async () => {
-      const querySnapshot = await getDocs(collection(db, "events"));
-      const eventDetails: Event[] = [];
+        // Fetch events from Firestore with more details
+        const fetchEvents = async () => {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        const eventDetails: Event[] = [];
 
-      querySnapshot.forEach((document) => {
-        const data = document.data();
-        eventDetails.push({
-          id: document.id,
-          eventName: data.eventName,
-          date: data.date || '',
-          time: data.time || '',
-          location: data.location || '',
+        querySnapshot.forEach((document) => {
+                const data = document.data();
+                eventDetails.push({
+                id: document.id,
+                eventName: data.eventName,
+                date: data.date || '',
+                time: data.time || '',
+                location: data.location || '',
 
-
+                });
         });
-      });
 
-      setTotalEvents(eventDetails);
+        setTotalEvents(eventDetails);
     };
 
-    fetchEvents().catch(console.error);
+        fetchEvents().catch(console.error);
   }, [db]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +68,7 @@ export default function Search(){
     console.log("Search", searchItem);
   };
 
-  if (!isClient) return null;
+//   if (!isClient) return null;
 
   const handleItemClick = (eventName: string) => {
     // Find the full event details
@@ -116,14 +115,14 @@ export default function Search(){
         {searchItem && searchSuggestions.length > 0 && (
           <div className="bg-white border-t-0 border border-gray-300 rounded-lg shadow-md mt-1 bg-gradient-to-r from-white to-indigo-200">
             <ul className="divide-y divide-gray-200">
-                {searchSuggestions.map((eventName) => (
-                        <li
-                        key={`${eventName}-${totalEvents.find(e => e.eventName === eventName)?.id}`}  // Use event ID
+                {searchSuggestions.map((eventName, index) => (
+                <li
+                        key={`${eventName}-${index}`}  // Using index as part of the key
                         className="p-2 text-black hover:bg-indigo-300 cursor-pointer"
                         onClick={() => handleItemClick(eventName)}
-                        >
+                >
                         {eventName}
-                        </li>
+                </li>
                 ))}
             </ul>
           </div>
