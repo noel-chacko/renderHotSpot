@@ -111,7 +111,12 @@ export default function EventCatalog() {
                     {sortedEvents.map((event) => (
                         <div
                             key={event.id}
-                            className="event-card min-w-[200px] bg-[#e2dbe8] shadow-lg rounded-xl p-6 relative transition-all duration-300 ease-in-out pb-8"
+
+
+                            className="event-card min-w-[200px] bg-[#e2dbe8] shadow-lg rounded-xl p-6 relative transition-all duration-300 ease-in-out pb-8 transform hover:scale-105 hover:shadow-2xl"
+
+
+
                         >
                             {/* Header with Icon */}
                             <div className="flex items-center justify-between mb-4">
