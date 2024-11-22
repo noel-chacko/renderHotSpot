@@ -6,6 +6,7 @@ import { db } from '@/app/firebase';
 import { collection, getDocs } from "firebase/firestore";
 import { format } from 'date-fns';
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart, FaRegHeart } from 'react-icons/fa';
+import Link from "next/link";
 
 interface Event {
     id: string;
@@ -30,7 +31,7 @@ export default function EventCatalog() {
                     ...doc.data(),
                     isFavorited: false,
                 })) as Event[];
-              
+
                 setEvents(eventsData);
             } catch (error) {
                 console.error("Error fetching events: ", error);
@@ -50,7 +51,7 @@ export default function EventCatalog() {
         );
     };
 
-        //helper functions for better formatting using date-fns
+    // Helper functions for better formatting using date-fns
     function formatDate(dateStr: string) {
         const date = new Date(dateStr);
         return format(date, 'MMMM d, yyyy');
@@ -99,13 +100,12 @@ export default function EventCatalog() {
                                     {event.eventName}
                                 </h3>
 
-                                {/* Favorite Button with Debugging Styles */}
-                                <button 
-                                    onClick={() => toggleFavorite(event.id)}>
+                                {/* Favorite Button */}
+                                <button onClick={() => toggleFavorite(event.id)}>
                                     {event.isFavorited ? (
-                                    <FaHeart className="text-[#ee9a40] text-xl" />
+                                        <FaHeart className="text-[#ee9a40] text-xl" />
                                     ) : (
-                                    <FaRegHeart className="text-gray-400 text-xl" />
+                                        <FaRegHeart className="text-gray-400 text-xl" />
                                     )}
                                 </button>
                             </div>
@@ -125,9 +125,11 @@ export default function EventCatalog() {
 
                             {/* Button to View Details */}
                             <div className="mt-4">
-                            <button className="card-text w-full py-2 text-white rounded-full hover-gradient">
-                                    View Details
-                                </button>
+                                <Link href={`/events/${event.id}`}>
+                                    <button className="card-text w-full py-2 text-white rounded-full hover-gradient">
+                                        View Details
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     ))}

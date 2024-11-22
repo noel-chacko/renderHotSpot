@@ -11,15 +11,14 @@ export default function BlankPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-white via-white to-orange-500 text-gray-900">
+    <div className="flex flex-col min-h-screen text-gray-900">
       <NavBar />
 
       <div className="flex justify-center items-center mt-8">
         <h1
-          className="text-5xl font-extrabold tracking-wide drop-shadow-lg"
+          className="text-5xl tracking-wide welcome-text text-[#3D52A0]"
           style={{
-            fontFamily: "'Poppins', sans-serif",
-            textShadow: "2px 2px 4px rgba(255, 0, 0, 0.5)",
+            
           }}
         >
           HOTSPOTS
