@@ -8,9 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundSize: {
-        'gradient-size': '200% 200%',
-      },
       animation:{
         'slide-in': 'slideIn 1.3s ease-out forwards',
         'gradient-flow': 'gradient-flow 5s ease-in-out infinite',
@@ -37,11 +34,6 @@ const config: Config = {
         slideIn: {
           '0%': { transform: 'translateX(-100%)', opacity: '1' },
           '100%': { transform: 'translateX(0)', opacity: '2' },
-        },
-        'gradient-flow': {
-          '0%': { backgroundPosition: '0% 0%' },
-          '50%': { backgroundPosition: '100% 100%' },
-          '100%': { backgroundPosition: '0% 0%' },
         },
       }
     },
