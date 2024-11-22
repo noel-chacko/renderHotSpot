@@ -8,6 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+
       backgroundSize: {
         'gradient-size': '200% 200%',
       },
@@ -29,6 +30,7 @@ const config: Config = {
           '50%': { backgroundPosition: '100% 100%' },
           '100%': { backgroundPosition: '0% 0%' },
         },
+
       }
     },
   },
