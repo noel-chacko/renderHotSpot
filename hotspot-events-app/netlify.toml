@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "hotspot-events-app/.next"
+  functions = "hotspot-events-app/netlify/functions"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
