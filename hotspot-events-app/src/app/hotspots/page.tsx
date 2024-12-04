@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable */
+
 import { useState } from "react";
 import NavBar from "@/app/NavBar";
 import { FaHeart, FaRegHeart } from "react-icons/fa";

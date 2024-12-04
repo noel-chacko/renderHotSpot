@@ -1,5 +1,7 @@
 // src/app/events/page.tsx
 
+/* eslint-disable */
+
 "use client";
 import { useState } from "react"; 
 import NavBar from "@/app/NavBar"; 

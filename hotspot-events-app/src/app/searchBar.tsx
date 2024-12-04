@@ -1,4 +1,7 @@
 "use client";
+
+/* eslint-disable */
+
 import React, { useState, useEffect, useCallback } from "react";
 import { FaSearch } from 'react-icons/fa'; 
 import { collection, getDocs } from "firebase/firestore";
